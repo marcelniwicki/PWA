@@ -1,0 +1,95 @@
+<html>
+<head>
+  <title>Moja strona PWA</title>
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="manifest" href="/manifest.json">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.css"/>
+  <script>
+    //if browser support service worker
+    if('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js');
+    };
+  </script>
+   <style>
+  body {
+    font: 20px Montserrat, sans-serif;
+    line-height: 1.8;
+    color: #00008B;
+  }
+  p {font-size: 16px;}
+  .margin {margin-bottom: 45px;}
+  
+  .bg-1 { 
+    background-color: #D2691E;
+    color: #00CED1;
+  }
+  .bg-2 { 
+    background-color: #51355A;
+    color: #00CED1;
+  }
+  .container-fluid {
+    padding-top: 70px;
+    padding-bottom: 70px;
+  }
+  .navbar {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border: 0;
+    border-radius: 0;
+    margin-bottom: 0;
+    font-size: 12px;
+    letter-spacing: 5px;
+    background-color: #F5F8DE;
+  }
+  .navbar-nav  li a:hover {
+    color: #2A0C4E !important;
+  }
+  </style>
+</head>
+</head>
+<body>
+</script>
+  <div class="container-fluid p-5 bg-primary text-white text-center">
+  <h2> Autorami projektu są Marcel Niwicki i Kacper Niwicki. Jesteśmy studentami trzeciego roku na kierunku "Informatyka Stosowana". To nasza aplikacja PWA.</h2>
+  </div>
+  <h3> Poniżej znajduje się mapa na której możesz sprawdzić swoją lokalizację, klikając w przycisk Get Location!</h3>
+  <div id="mapid"></div>
+  <h3> Kliknji w przycisk SOS, aby twój telefon zawibrował!</h3>
+  <script>
+    var mymap = L.map('mapid').setView([0, 0], 13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+        '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+      maxZoom: 18,
+    }).addTo(mymap);
+    
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+      } else {
+        alert("Geolocation is not supported by this browser.");
+      }
+    }
+
+    function showPosition(position) {
+      var latitude = position.coords.latitude;
+      var longitude = position.coords.longitude;
+      console.log("Latitude: " + latitude + ", Longitude: " + longitude);
+      mymap.setView([latitude, longitude], 13);
+      L.marker([latitude, longitude]).addTo(mymap);
+    }
+  </script>
+  <button onclick="getLocation()">Get Location</button>
+  <button onclick="vibrate()">SOS</button>
+
+<script>
